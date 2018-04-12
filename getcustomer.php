@@ -1,9 +1,26 @@
 <?php
 require 'connect/connect.php';
+require 'class.php';
 $array = array();
+
+$dateobj = new DatetimeTH();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $DueDate = $_POST["DueDate"];
+    if($DueDate!=""){
+      $date = explode(" ",$DueDate);
+      $month = $date[0];
+      $month = $dateobj->getNumber($dateobj->getNUMmonth($month));
+      $year = $date[2];
+      $date = explode(",",$date[1]);
+      $day = $dateobj->getNumber($date[0]);
+
+      $DueDate = $year."-".$month."-".$day;
+    }else {
+      $DueDate = date("Y-m-d");
+    }
+
+
     $Sql = "SELECT CONCAT(customer.FName,' ',customer.LName) AS Fullname,saleorder.Cus_Code,DATE_FORMAT(saleorder.DueDate ,'%d-%m-%Y') AS DueDate
               From  saleorder
               LEFT JOIN customer on customer.Cus_Code = saleorder.Cus_Code
