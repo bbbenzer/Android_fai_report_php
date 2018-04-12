@@ -36,7 +36,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         array_push($array,
           array('flag'=>"true",
           'Cus_Code'=>$Cus_Code,
-          'Fullname'=>$Fullname
+          'Fullname'=>$Fullname,
+          'DueDate'=>$DueDate
           )
         );
     }
