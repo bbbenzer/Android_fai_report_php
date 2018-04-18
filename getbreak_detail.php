@@ -8,11 +8,14 @@ $dateobj = new DatetimeTH();
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $Cus_Code = $_POST["Cus_Code"];
     $DueDate = $_POST["DueDate"];
+    // $Cus_Code = "9878";
+    // $DueDate = "2018-04-11";
+
     if($DueDate==""){
       $DueDate = date("Y-m-d");
     }
 
-    $datesend = date_format($DueDate,"d-m-Y");
+    $datesend = date_format (new DateTime($DueDate), 'd-m-Y');
     $i = 1;
     $Sql = "SELECT group_concat(`aaa` separator ' / ') AS NameTH ,customer,CONCAT(Detail,'  เบรคชุด ',BreakGroup) AS CusName,Qty
                     FROM
@@ -52,7 +55,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
           'customer'=>$customer,
           'CusName'=>$CusName,
           'Qty'=>$Qty,
-          'DueDate'=>$DueDate
+          'DueDate'=>$datesend
           )
         );
         $i++;
