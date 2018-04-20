@@ -42,10 +42,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                     ORDER BY IsDrink DESC
                       )
                       AS PP
-                     GROUP BY Customer,Detail,DocNo,BreakGroup";
+                     GROUP BY Customer,Detail,DocNo,BreakGroup;";
     $meQuery = mysql_query($Sql);
     while ($Result = mysql_fetch_assoc($meQuery)) {
-        $NameTH = $i.$Result["NameTH"];
+        $NameTH = $i.". ".$Result["NameTH"];
         $customer = $Result["customer"];
         $CusName = $Result["CusName"];
         $Qty = $Result["Qty"];
