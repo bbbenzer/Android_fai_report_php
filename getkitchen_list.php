@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 			    		 LEFT JOIN item_unit on item_unit.Unit_Code = item.Unit_Code
 			    		 LEFT JOIN roomtype on roomtype.roomtypeID = item.roomtypeID
 
-			    		 where DATE(facorder.DueDate) = DATE('2018-04-11')
+			    		 where DATE(facorder.DueDate) = DATE('$DueDate')
 			    		 and facorderdetail.ItemFormula1 > '0'
 			    		and item.ItemCode7 IN ( '0403010197','0403010198' )
 
