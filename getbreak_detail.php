@@ -16,6 +16,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     }
 
     $datesend = date_format (new DateTime($DueDate), 'd-m-Y');
+    $Custemp = "";
     $i = 1;
     $Sql = "SELECT group_concat(`aaa` separator ' / ') AS NameTH ,customer,CONCAT(Detail,'  เบรคชุด ',BreakGroup) AS CusName,Qty
                     FROM
@@ -45,9 +46,25 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                      GROUP BY Customer,Detail,DocNo,BreakGroup;";
     $meQuery = mysql_query($Sql);
     while ($Result = mysql_fetch_assoc($meQuery)) {
+      if($i==1){
         $NameTH = $i.". ".$Result["NameTH"];
-        $customer = $Result["customer"];
         $CusName = $Result["CusName"];
+        $Custemp = $CusName;
+        $i++;
+      }else {
+        if($Custemp != $Result["CusName"] || $Custemp==""){
+          $i = 1;
+          $NameTH = $i.". ".$Result["NameTH"];
+          $CusName = $Result["CusName"];
+          $Custemp = $CusName;
+        }else {
+          $NameTH = $i.". ".$Result["NameTH"];
+          $CusName = "BLANK_TRUE";
+          $i++;
+        }
+      }
+
+        $customer = $Result["customer"];
         $Qty = $Result["Qty"];
         array_push($array,
           array('flag'=>"true",
@@ -58,7 +75,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
           'DueDate'=>$datesend
           )
         );
-        $i++;
+
     }
 }else {
   array_push($array,

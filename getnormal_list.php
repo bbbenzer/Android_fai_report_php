@@ -171,17 +171,21 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $Unit = $Result["Unit_Name"];
         $Qty = $Result["QtyFac"];
         $Roomname = $Result["roomname"];
-        array_push($array,
-          array('flag'=>"true",
-          'Number'=>$Number,
-          'NameTH'=>$NameTH,
-          'Price'=>$Price,
-          'Unit'=>$Unit,
-          'Qty'=>$Qty,
-          'DueDate'=>$datesend,
-          'Roomname'=>$Roomname
-          )
-        );
+        if($Roomtype=="17"&&$Result["Item_Code"]=="0101010057"){
+            continue;
+        }else{
+          array_push($array,
+            array('flag'=>"true",
+            'Number'=>$Number,
+            'NameTH'=>$NameTH,
+            'Price'=>$Price,
+            'Unit'=>$Unit,
+            'Qty'=>$Qty,
+            'DueDate'=>$datesend,
+            'Roomname'=>$Roomname
+              )
+            );
+        }
         $i++;
     }
 }else {
